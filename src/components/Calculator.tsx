@@ -20,7 +20,7 @@ export function Calculator({ type }: CalculatorProps) {
       flowRateLS = volume / averageTime;
     } else {
       // Alterei o cálculo da escala para usar um número diretamente
-      const multiplier = scale === 0.1 ? 1000 : scale === 0.01 ? 100 : scale === 0.001 ? 1000 : 1;
+      const multiplier = scale === 0.1 ? 1000 : scale === 0.01 ? 100 : scale === 0.001 ? 10 : 1;
       flowRateLS = multiplier / averageTime;
     }
 
