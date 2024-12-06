@@ -12,12 +12,15 @@ export function Calculator({ type }: CalculatorProps) {
   const [time3, setTime3] = useState(1);
 
   const calculateFlowRates = () => {
+    // Calcula a média dos tempos
+    const averageTime = (time1 + time2 + time3) / 3;
+
     let flowRateLS = 0;
     if (type === 'bucket') {
-      flowRateLS = volume / time1;
+      flowRateLS = volume / averageTime;
     } else {
       const multiplier = scale === '0.1' ? 10 : scale === '0.01' ? 100 : 1000;
-      flowRateLS = multiplier / time1;
+      flowRateLS = multiplier / averageTime;
     }
 
     const flowRateLH = flowRateLS * 3600;
@@ -57,7 +60,7 @@ export function Calculator({ type }: CalculatorProps) {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
+          {[ 
             { label: 'Tempo 1 (s)', value: time1, setter: setTime1 },
             { label: 'Tempo 2 (s)', value: time2, setter: setTime2 },
             { label: 'Tempo 3 (s)', value: time3, setter: setTime3 },
