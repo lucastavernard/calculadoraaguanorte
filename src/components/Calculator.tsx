@@ -19,8 +19,11 @@ export function Calculator({ type }: CalculatorProps) {
     if (type === 'bucket') {
       flowRateLS = volume / averageTime;
     } else {
-      // Alterei o cálculo da escala para usar um número diretamente
-      const multiplier = scale === 0.1 ? 1000 : scale === 0.01 ? 100 : scale === 0.001 ? 10 : 1;
+      // Alterei o cálculo da escala para incluir o x0.0001
+      const multiplier = scale === 0.1 ? 1000 :
+                        scale === 0.01 ? 100 :
+                        scale === 0.001 ? 10 :
+                        scale === 0.0001 ? 1 : 1; // Novo valor para x0.0001
       flowRateLS = multiplier / averageTime;
     }
 
@@ -56,6 +59,7 @@ export function Calculator({ type }: CalculatorProps) {
               <option value={0.1}>x0.1</option>
               <option value={0.01}>x0.01</option>
               <option value={0.001}>x0.001</option>
+              <option value={0.0001}>x0.0001</option> {/* Nova opção */}
             </select>
           </div>
         )}
