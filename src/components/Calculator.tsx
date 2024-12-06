@@ -5,14 +5,20 @@ interface CalculatorProps {
 }
 
 export function Calculator({ type }: CalculatorProps) {
-  const [volume, setVolume] = useState<string>(''); // Alterado para string vazia
+  const [volume, setVolume] = useState<string>('0'); // Começa com '0' para remover depois
   const [scale, setScale] = useState<number>(0.01); 
-  const [time1, setTime1] = useState<string>(''); // Alterado para string vazia
-  const [time2, setTime2] = useState<string>(''); // Alterado para string vazia
-  const [time3, setTime3] = useState<string>(''); // Alterado para string vazia
+  const [time1, setTime1] = useState<string>('0'); // Começa com '0' para remover depois
+  const [time2, setTime2] = useState<string>('0'); // Começa com '0' para remover depois
+  const [time3, setTime3] = useState<string>('0'); // Começa com '0' para remover depois
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setter(e.target.value);
+    const value = e.target.value;
+    // Remove o 0 inicial se o campo não for vazio
+    if (value === '0') {
+      setter('');
+    } else {
+      setter(value);
+    }
   };
 
   const calculateFlowRates = () => {
