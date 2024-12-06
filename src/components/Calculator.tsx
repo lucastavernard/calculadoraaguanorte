@@ -53,7 +53,7 @@ export function Calculator({ type }: CalculatorProps) {
               onChange={(e) => setScale(Number(e.target.value))} // Converte para número
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             >
-              <option value={0.1}>x0.1</option>
+              <option value={0.001}>x0.1</option>
               <option value={0.01}>x0.01</option>
               <option value={0.001}>x0.001</option>
             </select>
