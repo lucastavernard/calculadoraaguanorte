@@ -5,25 +5,32 @@ interface CalculatorProps {
 }
 
 export function Calculator({ type }: CalculatorProps) {
-  const [volume, setVolume] = useState(1);
-  const [scale, setScale] = useState<number>(0.01); // Alterado para número
-  const [time1, setTime1] = useState(1);
-  const [time2, setTime2] = useState(1);
-  const [time3, setTime3] = useState(1);
+  const [volume, setVolume] = useState<string>(''); // Alterado para string vazia
+  const [scale, setScale] = useState<number>(0.01); 
+  const [time1, setTime1] = useState<string>(''); // Alterado para string vazia
+  const [time2, setTime2] = useState<string>(''); // Alterado para string vazia
+  const [time3, setTime3] = useState<string>(''); // Alterado para string vazia
+
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setter(e.target.value);
+  };
 
   const calculateFlowRates = () => {
-    // Calcula a média dos tempos
-    const averageTime = (time1 + time2 + time3) / 3;
+    // Verifica se os campos estão vazios antes de calcular
+    const time1Value = time1 ? Number(time1) : 0;
+    const time2Value = time2 ? Number(time2) : 0;
+    const time3Value = time3 ? Number(time3) : 0;
+    const averageTime = (time1Value + time2Value + time3Value) / 3;
 
     let flowRateLS = 0;
     if (type === 'bucket') {
-      flowRateLS = volume / averageTime;
+      const volumeValue = volume ? Number(volume) : 1; // Garante que o volume seja 1 se estiver vazio
+      flowRateLS = volumeValue / averageTime;
     } else {
-      // Alterei o cálculo da escala para incluir o x0.0001
       const multiplier = scale === 0.1 ? 1000 :
                         scale === 0.01 ? 100 :
                         scale === 0.001 ? 10 :
-                        scale === 0.0001 ? 1 : 1; // Novo valor para x0.0001
+                        scale === 0.0001 ? 1 : 1;
       flowRateLS = multiplier / averageTime;
     }
 
@@ -42,7 +49,7 @@ export function Calculator({ type }: CalculatorProps) {
             <input
               type="number"
               value={volume}
-              onChange={(e) => setVolume(Number(e.target.value))}
+              onChange={handleInputChange(setVolume)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               step="0.01"
               min="0"
@@ -53,13 +60,13 @@ export function Calculator({ type }: CalculatorProps) {
             <label className="block text-sm font-medium text-gray-700 mb-2">Escala</label>
             <select
               value={scale}
-              onChange={(e) => setScale(Number(e.target.value))} // Converte para número
+              onChange={(e) => setScale(Number(e.target.value))}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             >
               <option value={0.1}>x0.1</option>
               <option value={0.01}>x0.01</option>
               <option value={0.001}>x0.001</option>
-              <option value={0.0001}>x0.0001</option> {/* Nova opção */}
+              <option value={0.0001}>x0.0001</option>
             </select>
           </div>
         )}
@@ -75,7 +82,7 @@ export function Calculator({ type }: CalculatorProps) {
               <input
                 type="number"
                 value={field.value}
-                onChange={(e) => field.setter(Number(e.target.value))}
+                onChange={handleInputChange(field.setter)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 step="0.01"
                 min="0"
