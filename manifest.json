@@ -4,5 +4,6 @@
   "background_color": "#000000",
   "short_name": "Calculadora Água Norte",
   "id": "1",
-  "description": "Calculadora de vazao de agua"
+  "description": "Calculadora de vazão de água",
+  "start_url": "https://calculadoraaguanorte.netlify.app/"
 }
