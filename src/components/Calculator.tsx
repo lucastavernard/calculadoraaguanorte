@@ -6,7 +6,7 @@ interface CalculatorProps {
 
 export function Calculator({ type }: CalculatorProps) {
   const [volume, setVolume] = useState(1);
-  const [scale, setScale] = useState<'0.1' | '0.01' | '0.001'>('0.01');
+  const [scale, setScale] = useState<number>(0.01); // Alterado para número
   const [time1, setTime1] = useState(1);
   const [time2, setTime2] = useState(1);
   const [time3, setTime3] = useState(1);
@@ -19,7 +19,8 @@ export function Calculator({ type }: CalculatorProps) {
     if (type === 'bucket') {
       flowRateLS = volume / averageTime;
     } else {
-      const multiplier = scale === '0.1' ? 10 : scale === '0.01' ? 100 : 1000;
+      // Alterei o cálculo da escala para usar um número diretamente
+      const multiplier = scale === 0.1 ? 10 : scale === 0.01 ? 100 : scale === 0.001 ? 1000 : 1;
       flowRateLS = multiplier / averageTime;
     }
 
@@ -49,12 +50,12 @@ export function Calculator({ type }: CalculatorProps) {
             <label className="block text-sm font-medium text-gray-700 mb-2">Escala</label>
             <select
               value={scale}
-              onChange={(e) => setScale(e.target.value as '0.1' | '0.01' | '0.001')}
+              onChange={(e) => setScale(Number(e.target.value))} // Converte para número
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             >
-              <option value="0.1">x0.1</option>
-              <option value="0.01">x0.01</option>
-              <option value="0.001">x0.001</option>
+              <option value={0.1}>x0.1</option>
+              <option value={0.01}>x0.01</option>
+              <option value={0.001}>x0.001</option>
             </select>
           </div>
         )}
