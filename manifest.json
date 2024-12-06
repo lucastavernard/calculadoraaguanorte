@@ -1,9 +1,20 @@
 {
   "name": "Calculadora Água Norte",
+  "short_name": "Calculadora Água Norte",
   "theme_color": "#000000",
   "background_color": "#000000",
-  "short_name": "Calculadora Água Norte",
-  "id": "1",
   "description": "Calculadora de vazão de água",
-  "start_url": "https://calculadoraaguanorte.netlify.app/"
+  "start_url": "https://calculadoraaguanorte.netlify.app/",
+  "icons": [
+    {
+      "src": "src/logo_agua_norte-removebg-preview.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "src/logo_agua_norte-removebg-preview.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
