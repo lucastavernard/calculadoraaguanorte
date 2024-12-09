@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calculator } from '../components/Calculator';
 import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import useScript from '../hooks/useScript';
 
 export function Home() {
   const { user } = useAuthStore();
   const [activeTab, setActiveTab] = useState<'bucket' | 'hydrometer'>('bucket');
+
+  // Carregar o script do Google Ads
+  useScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890133926267808');
+
+  // Ativar os anúncios
+  useEffect(() => {
+    if (window.adsbygoogle) {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  }, []);
 
   if (!user) {
     return <Navigate to="/login" />;
   }
 
   const handleSave = async (calculation: any) => {
-    // Here you would implement the save logic with your backend
     console.log('Saving calculation:', calculation);
   };
 
@@ -50,7 +60,16 @@ export function Home() {
         </nav>
       </div>
 
+      {/* Bloco do Google Ads */}
+      <div className="ads-container">
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client="ca-pub-6890133926267808"
+          data-ad-slot="1234567890"
+          data-ad-format="auto"
+        />
+      </div>
+
       <Calculator type={activeTab} onSave={handleSave} />
-    </div>
-  );
-}
+    </div
